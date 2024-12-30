@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>Department Table</title>
+    {% endblock %}
+</head>
+<body>
+    <center>
+        <table border="3px">
+            {% block table_header %}
+            <tr>
+                <th>Department ID</th>
+                <th>Department Name</th>
+                <th>Location</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{ i.Dept_no }}</td>
+                <td>{{ i.Dept_name }}</td>
+                <td>{{ i.Loc }}</td>
+            </tr>
+            {% endfor %}
+            {% endblock %}
+        </table>
+    </center>
+</body>
+</html>

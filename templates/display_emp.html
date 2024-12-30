@@ -1,0 +1,28 @@
+{% extends "display_dept.html" %}
+{% block title %}
+<title>Employee Table</title>
+{% endblock %}
+{% block table_header %}
+<tr>
+    <th>Emp_no</th>
+    <th>Emp_name</th>
+    <th>Job</th>
+    <th>Mgr</th>
+    <th>Hire_date</th>
+    <th>Salary</th>
+    <th>Commission</th>
+    <th>Dept_no</th>   
+</tr>
+{% for i in data1 %}
+<tr>
+    <td>{{ i.Emp_no }}</td>
+    <td>{{ i.Emp_name }}</td>
+    <td>{{ i.Job }}</td>
+    <td>{{ i.Mgr }}</td>
+    <td>{{ i.Hiredate }}</td>
+    <td>{{ i.Salary }}</td>
+    <td>{{ i.Commission }}</td>
+    <td>{{ i.Dept_no }}</td>
+</tr>
+{% endfor %}
+{% endblock %}
