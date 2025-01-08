@@ -1,10 +1,10 @@
 {% extends "display_dept.html" %}
 {% block title %}
-<title>Employee Table</title>
+<title>SELECT_RELATED</title>
 {% endblock %}
 
 {% block h1 %}
-<h1>Employee tables</h1>
+<h1>MGR and Emp table</h1>
 {% endblock %}
 
 {% block table_header %}
@@ -16,7 +16,10 @@
     <th>Hire_date</th>
     <th>Salary</th>
     <th>Commission</th>
-    <th>Dept_no</th>   
+    <th>Dept_no</th>  
+    <th>manager no</th>  
+    <th>manager Name</th>  
+    <th>manage salary</th>  
 </tr>
 {% for i in data1 %}
 <tr>
@@ -28,6 +31,9 @@
     <td>{{ i.Salary }}</td>
     <td>{{ i.Commission }}</td>
     <td>{{ i.Dept_no }}</td>
+    <td>{{ i.Mgr.Emp_no }}</td>
+    <td>{{ i.Mgr.Emp_name }}</td>
+    <td>{{ i.Mgr.Salary }}</td>
 </tr>
 {% endfor %}
 {% endblock %}

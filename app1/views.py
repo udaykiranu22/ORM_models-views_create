@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
 from app1.models import *
+from django.db.models.functions import Length
 
 def insert_dept(request):
     dno = int(input("Enter Department Number: "))
@@ -54,3 +55,58 @@ def display_emp(request):
     data1 = Employee.objects.all()
     d = {'data1':data1}
     return render(request, 'display_emp.html', d)
+
+def select_related1(request):
+    data1 = Employee.objects.all().select_related('Dept_no')
+    data1 = Employee.objects.select_related('Dept_no').filter(Emp_no='1')
+    data1 = Employee.objects.select_related('Dept_no').filter(Emp_no__range=(3,6))
+    data1 = Employee.objects.select_related('Dept_no').filter(Emp_name__contains='u')
+    data1 = Employee.objects.select_related('Dept_no').filter(Emp_name__startswith='c')
+    data1 = Employee.objects.select_related('Dept_no').filter(Emp_name__endswith='n')
+    data1 = Employee.objects.select_related('Dept_no').filter(Emp_name__regex='^\wh+')
+    data1 = Employee.objects.select_related('Dept_no').filter(Emp_no__in=(2,5))
+    data1 = Employee.objects.select_related('Dept_no').all()[1:7:2]
+    data1 = Employee.objects.select_related('Dept_no').all().order_by('Emp_name')
+    data1 = Employee.objects.select_related('Dept_no').all().order_by('-Emp_name')
+    data1 = Employee.objects.select_related('Dept_no').all().order_by(Length("Emp_name"))
+    data1 = Employee.objects.select_related('Dept_no').all().order_by(Length("Emp_name").desc())
+    data1 = Employee.objects.select_related('Dept_no').filter(Salary__gt = '10000')
+    data1 = Employee.objects.select_related('Dept_no').filter(Salary__lt = '20000')
+    data1 = Employee.objects.select_related('Dept_no').filter(Salary__gte = '100000')
+    data1 = Employee.objects.select_related('Dept_no').filter(Salary__lte = '10000')
+    data1 = Employee.objects.select_related('Dept_no').exclude(Emp_no='1')
+    data1 = Employee.objects.select_related('Dept_no').filter(Commission__isnull=True)
+    data1 = Employee.objects.select_related('Dept_no').filter(Commission__isnull=False)
+    data1 = Employee.objects.select_related('Dept_no').filter(Dept_no__Loc='bangalore')
+    d = {'data1':data1}
+    return render(request, 'select_related.html', d)
+
+def select_related_mgr(request):
+    data1 = Employee.objects.all().select_related('Mgr')
+    data1 = Employee.objects.select_related('Mgr').all()[1:7:2]
+    data1 = Employee.objects.select_related('Mgr').filter(Mgr='1')
+    data1 = Employee.objects.select_related('Mgr').filter(Commission__isnull=True)
+    data1 = Employee.objects.select_related('Mgr').filter(Commission__isnull=False)
+    data1 = Employee.objects.select_related('Mgr').filter(Mgr__Salary__gt='10000')
+    data1 = Employee.objects.select_related('Mgr').filter(Mgr__Salary__lt='100000')
+    data1 = Employee.objects.select_related('Mgr').filter(Mgr__Salary__gte='100000')
+    data1 = Employee.objects.select_related('Mgr').filter(Mgr__Salary__lte='100000')
+    data1 = Employee.objects.select_related('Mgr').filter(Mgr__Commission__isnull=True)
+    data1 = Employee.objects.select_related('Mgr').filter(Mgr__Commission__isnull=False)
+    data1 = Employee.objects.select_related('Mgr').filter(Mgr__Job='python developer')
+    d = {'data1':data1}
+    return render(request, 'select_related_mgr.html', d)
+
+def multiple_tables(request):
+    data1 = Employee.objects.all().select_related('Dept_no','Mgr')
+    data1 = Employee.objects.select_related('Dept_no','Mgr').filter(Mgr='1')
+    data1 = Employee.objects.select_related('Dept_no','Mgr').filter(Commission__isnull=True)
+    data1 = Employee.objects.select_related('Dept_no','Mgr').filter(Commission__isnull=False)
+    d = {'data1': data1}
+    return render(request, 'multiple_tables.html', d)
+
+def prefetch_related1(request):
+    LDEO = Department.objects.prefetch_related('employee_set').all()
+    print(LDEO)
+    d = {'LDEO':LDEO}
+    return render(request, 'prefetch_related1.html', d)

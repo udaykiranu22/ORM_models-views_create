@@ -24,4 +24,8 @@ urlpatterns = [
     path('insert_emp/', insert_emp, name='insert_emp'),
     path('display_dept/', display_dept, name='display_dept'),
     path('display_emp/', display_emp, name='display_emp'),
+    path('select_related1/', select_related1, name='select_related1'),
+    path('select_related_mgr/', select_related_mgr, name='select_related_mgr'),
+    path('multiple_tables/', multiple_tables, name='multiple_tables'),
+    path('prefetch_related1/', prefetch_related1, name='prefetch_related1'),
 ]

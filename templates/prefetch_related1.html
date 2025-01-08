@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Table</title>
+</head>
+<body>
+<center>
+    <h1>prefetch_related</h1>
+    {% for edo in LDEO %}
+    <h1>dno is {{edo.Dept_no}}
+        dname is {{edo.Dept_name}}
+        dLoc is {{edo.Loc}}
+    </h1>
+    <table>
+        <tr>
+            <th>eno</th>
+            <th>ename</th>
+            <th>esal</th>
+        </tr> 
+        {% for eo in edo.emp_set.all %}
+        <tr>
+            <td>{{eo.Emp_no}}</td>
+            <td>{{eo.Emp_name}}</td>
+            <td>{{eo.Emp_Salary}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endfor %}
+</center>
+</body>
+</html>
